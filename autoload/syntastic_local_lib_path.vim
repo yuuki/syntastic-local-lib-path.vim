@@ -45,8 +45,9 @@ function! s:uniq(list)
   return filter(copy(a:list), 'count(a:list, v:val) != 0')
 endfunction
 
+let s:archname = unite#util#system('perl -MConfig -e '."'".'print $Config{archname}'."'")
 let s:perl_project_root_files = ['.git', '.gitmodules', 'Makefile.PL', 'Build.PL']
-let s:perl_lib_dirs = ['lib', 'extlib', 'local/lib/perl5']
+let s:perl_lib_dirs = ['lib', 'extlib', 'local/lib/perl5', 'local/lib/perl5/'.s:archname]
 
 function! syntastic_local_lib_path#add_perl_paths(perl_paths)
   if !exists('g:syntastic_perl_lib_path')
